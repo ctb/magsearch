@@ -1,0 +1,9 @@
+query_name: christy_2022_mar_01
+query_sigs: /home/ntpierce/2022-magsearch-tr/ibd_dda_cd.siglist.txt
+wort_sigs: /group/ctbrowngrp/irber/data/wort-data/wort-sra/sigs
+#catalog: /group/ctbrowngrp/sra_search/catalogs/metagenomes
+catalog: catalog.sub
+#s3_dir: outputs/wort-sra/sigs
+threshold: 0.01
+ksize: 31
+out_dir: "output.magsearch"
