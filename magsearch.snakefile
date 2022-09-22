@@ -1,7 +1,11 @@
 """
 Author: Luiz Irber (except for the parameter fiddling :)
-Source: /group/ctbrowngrp/irber/sra_search/Snakefile
-snakemake -s magsearch.snakefile --profile farm --cluster-config cluster_config.yml --jobs 32 --restart-times 1
+
+Run it like so:
+
+snakemake -s magsearch.snakefile --configfile config.yml -j 32
+
+Needs ~40 GB of RAM.
 """
 
 configfile: "config.yml"
@@ -9,33 +13,6 @@ configfile: "config.yml"
 rule all:
   input: 
       f"{config['out_dir']}/results/{config['query_name']}.csv"
-
-
-#rule catalog_all:
-#  output: "/group/ctbrowngrp/irber/sra_search/catalogs/all_wort_sigs"
-#  shell: "find {config[wort_sigs]} -type f -iname '*.sig' > {output}"
-
-rule catalog_metagenomes:
-  #output: "/group/ctbrowngrp/irber/sra_search/catalogs/metagenomes"
-  output: "/group/ctbrowngrp/sra_search/catalogs/metagenomes"
-  run:
-    import csv
-    from pathlib import Path
-
-    sraids = set(Path("/group/ctbrowngrp/irber/sra_search/inputs/mash_sraids.txt").read_text().split('\n'))
-
-    #with open("/group/ctbrowngrp/irber/sra_search/inputs/metagenomes_source-20210416.csv") as fp:
-    with open("/group/ctbrowngrp/sra_search/metagenomes_source_20220128.csv") as fp:
-      data = csv.DictReader(fp, delimiter=',')
-      for dataset in data:
-        sraids.add(dataset['Run'])
-
-    with open(output[0], 'w') as fout:
-      for sraid in sraids:
-        sig_path = Path(config['wort_sigs']) / f"{sraid}.sig"
-        if sig_path.exists():
-          fout.write(f"{sig_path}\n")
-
 
 rule build_rust_bin:
   output: "/group/ctbrowngrp/irber/sra_search/bin/sra_search",
@@ -66,10 +43,4 @@ rule search:
          --scaled {params.scaled} \
          -o {output} {input.queries} {input.catalog} 2> {log}
     exit 0
-  """
-
-rule download_signatures_from_wort:
-  conda: "/group/ctbrowngrp/irber/sra_search/env/aws.yml"
-  shell: """
-    aws s3 sync s3://wort-sra/ {params.s3_dir} --request-payer=requester
   """
