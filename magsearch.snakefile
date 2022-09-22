@@ -51,7 +51,8 @@ rule search:
     bin = "/group/ctbrowngrp/irber/sra_search/bin/sra_search"
   params:
     threshold = config.get("threshold", 0.01),
-    ksize = config.get("ksize", 31)
+    ksize = config.get("ksize", 31),
+    scaled = config.get("scaled", 1000)
   log: f"{config['out_dir']}/logs/sra_search.k{config['ksize']}.log"
   benchmark: f"{config['out_dir']}/logs/sra_search.k{config['ksize']}.benchmark"
   threads: 36
@@ -61,7 +62,9 @@ rule search:
   shell: """
     export RAYON_NUM_THREADS={threads}
     set +e
-    {input.bin} --threshold {params.threshold} -k {params.ksize} -o {output} {input.queries} {input.catalog} 2> {log}
+    {input.bin} --threshold {params.threshold} -k {params.ksize} \
+         --scaled {params.scaled} \
+         -o {output} {input.queries} {input.catalog} 2> {log}
     exit 0
   """
 

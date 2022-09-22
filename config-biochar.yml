@@ -1,9 +1,0 @@
-query_name: biochar_2022_mar_01
-query_sigs: query.biochar_2022_mar_01.txt
-wort_sigs: /group/ctbrowngrp/irber/data/wort-data/wort-sra/sigs
-catalog: /group/ctbrowngrp/sra_search/catalogs/metagenomes
-#catalog: catalog.sub
-#s3_dir: outputs/wort-sra/sigs
-threshold: 0.01
-ksize: 31
-out_dir: "output.magsearch"
