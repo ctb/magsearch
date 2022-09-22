@@ -11,13 +11,14 @@ Needs ~40 GB of RAM.
 configfile: "config.yml"
 
 rule all:
+  message: "run the search for {config['query_name']}."
   input: 
       f"{config['out_dir']}/results/{config['query_name']}.csv"
 
 rule build_rust_bin:
-  output: "/group/ctbrowngrp/irber/sra_search/bin/sra_search",
+  output: "bin/sra_search",
   conda: "/group/ctbrowngrp/irber/sra_search/env/rust.yml"
-  shell: "cargo install --git https://github.com/luizirber/phd.git --rev 600dee0d812189abb6521b1c7f4f7c0a29b8fdf6 sra_search --root ."
+  shell: "cargo install --git https://github.com/sourmash-bio/sra_search searcher --root ."
 
 rule search:
   output: f"{config['out_dir']}/results/{config['query_name']}.csv"
