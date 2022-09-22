@@ -1,9 +1,21 @@
-query_name: christy_2022_mar_01
-query_sigs: query.christy_2022_mar_01.txt
-wort_sigs: /group/ctbrowngrp/irber/data/wort-data/wort-sra/sigs
-catalog: /group/ctbrowngrp/sra_search/catalogs/metagenomes
-#catalog: catalog.sub
-#s3_dir: outputs/wort-sra/sigs
+# unique query name
+query_name: example
+
+# list of paths of query signatures
+query_sigs: query.example.txt
+
+# catalog to search - list of paths of subject signatures
+#catalog: /group/ctbrowngrp/sra_search/catalogs/metagenomes
+catalog: catalog.sub
+
+# containment threshold to use
 threshold: 0.01
+
+# k-mer size to use
 ksize: 31
+
+# scaled to use
+scaled: 1000
+
+# where to put the results
 out_dir: "output.magsearch"
