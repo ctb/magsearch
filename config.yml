@@ -1,7 +1,7 @@
 # unique query name
 query_name: example
 
-# list of paths of query signatures
+# list of paths of query signatures - 1 or more.
 query_sigs: query.example.txt
 
 # catalog to search - list of paths of subject signatures
