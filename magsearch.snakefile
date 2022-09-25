@@ -15,9 +15,9 @@ rule all:
       f"{config['out_dir']}/results/{config['query_name']}.csv"
 
 rule build_rust_bin:
-  output: "/group/ctbrowngrp/irber/sra_search/bin/sra_search",
+  output: "bin/searcher"
   conda: "/group/ctbrowngrp/irber/sra_search/env/rust.yml"
-  shell: "cargo install --git https://github.com/luizirber/phd.git --rev 600dee0d812189abb6521b1c7f4f7c0a29b8fdf6 sra_search --root ."
+  shell: "cargo install --git https://github.com/sourmash-bio/sra_search searcher --root ."
 
 rule search:
   output: f"{config['out_dir']}/results/{config['query_name']}.csv"
@@ -25,7 +25,8 @@ rule search:
     queries = config["query_sigs"],
     #catalog = "/group/ctbrowngrp/irber/sra_search/catalogs/metagenomes",
     catalog = config["catalog"],
-    bin = "/group/ctbrowngrp/irber/sra_search/bin/sra_search"
+    #bin = "/group/ctbrowngrp/irber/sra_search/bin/sra_search"
+    bin = "bin/searcher",
   params:
     threshold = config.get("threshold", 0.01),
     ksize = config.get("ksize", 31),
