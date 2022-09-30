@@ -36,6 +36,8 @@ def main():
     p.add_argument('-o', '--output-annotated-csv')
     args = p.parse_args()
 
+    assert args.magsearch_csv != args.output_annotated_csv
+
     print(f"loading runinfo from '{args.run_info_sra}'", file=sys.stderr)
     run_info = pd.read_csv(args.run_info_sra)
     print(f"...done. Loaded {len(run_info)} rows.", file=sys.stderr)
