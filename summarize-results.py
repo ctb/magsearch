@@ -33,6 +33,7 @@ def main():
     p.add_argument('magsearch_csv')
     p.add_argument('-t', '--containment-threshold', type=float, default=0.20)
     p.add_argument('-N', '--display-num-rows', type=int, default=20)
+    p.add_argument('-o', '--output-annotated-csv')
     args = p.parse_args()
 
     print(f"loading runinfo from '{args.run_info_sra}'", file=sys.stderr)
@@ -67,6 +68,12 @@ def main():
 
     magsearch3_df = magsearch2_df[~magsearch2_df['ScientificName'].isnull()]
     print(f"Of {len(magsearch2_df)} MAGsearch results, {len(magsearch3_df)} have non-null metadata", file=sys.stderr)
+
+    if args.output_annotated_csv:
+        print(f"writing annotated MAGsearch results to '{args.output_annotated_csv}'", file=sys.stderr)
+        magsearch3_df.to_csv(args.output_annotated_csv)
+        print(f"...wrote {len(magsearch3_df)} results.", file=sys.stderr)
+        print("", file=sys.stderr)
 
     # distinct metagenome IDs
     sra_acc_set = set(magsearch3_df.index)
