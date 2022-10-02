@@ -1,0 +1,3 @@
+tests/test-data/2.fa.sig
+tests/test-data/47.fa.sig
+tests/test-data/63.fa.sig
