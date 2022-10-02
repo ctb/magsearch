@@ -9,7 +9,7 @@ testdata_path = Path('tests/test-data')
 def run_summarize(magsearch_csv, runinfo_csv, *args, fail_ok=False):
     args = [ str(x) for x in args ]
 
-    args = ['./summarize-results.py', '--run', runinfo_csv, magsearch_csv] + args
+    args = ['./bin/summarize-results.py', '--run', runinfo_csv, magsearch_csv] + args
     p = subprocess.run(args, capture_output=True)
     if p.returncode != 0 and not fail_ok:
         raise Exception(p)

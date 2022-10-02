@@ -1,4 +1,7 @@
 #! /usr/bin/env python
+"""
+Summarize magsearch results.
+"""
 import sys
 import pandas as pd
 import argparse
@@ -6,11 +9,17 @@ import os
 
 
 def extract_run_acc(x):
-    # get just the end filename
+    "get just the basename of the run filename, with .sig extension removed"
+    # trim off path
     x = os.path.basename(x)
+
     # remove extension '.sig'
     y, ext = os.path.splitext(x)
+
+    # confirm expected .sig ending ;)
     assert ext == '.sig', ext
+
+    # done!
     return y
 
 
