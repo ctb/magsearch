@@ -24,4 +24,4 @@ out_dir: "output.magsearch"
 runinfo: "/home/ctbrown/transfer/big.runinfo.csv.gz"
 
 # threshold for results summary
-summary_threshold = 0.2
+summary_threshold: 0.2

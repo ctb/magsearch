@@ -60,6 +60,6 @@ rule summarize:
     params:
         threshold = float(config['summary_threshold'])
     shell: """
-       bin/summarize-results.py --run {input.runinfo} {results} \
+       bin/summarize-results.py --run {input.runinfo} {input.results} \
             -t {params.threshold} -o {output.annot} >& {output.out}
     """
