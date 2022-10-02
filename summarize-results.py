@@ -5,25 +5,12 @@ import argparse
 import os
 
 
-def strip_quotes(x):
-    return x.strip("'")
-
 def extract_run_acc(x):
     # get just the end filename
-    x = x.strip("'")
     x = os.path.basename(x)
     # remove extension '.sig'
     y, ext = os.path.splitext(x)
     assert ext == '.sig', ext
-    return y
-
-# this can be used in case we have .gz, .fasta, .fa, etc in the query filename
-def remove_extension(x):
-    x = os.path.basename(x)
-    y, ext = os.path.splitext(x)
-    while ext in ('.gz', '.fasta', '.fa', '.fna'):
-        x = y
-        y, ext = os.path.splitext(x)
     return y
 
 
@@ -45,7 +32,7 @@ def main():
 
     print(f"loading magsearch results from '{args.magsearch_csv}'",
           file=sys.stderr)
-    magsearch_df = pd.read_csv(args.magsearch_csv)
+    magsearch_df = pd.read_csv(args.magsearch_csv, quotechar="'")
     print(f"...done. Loaded {len(magsearch_df)} rows.", file=sys.stderr)
     print("", file=sys.stderr)
 
@@ -57,7 +44,6 @@ def main():
     # clean up the MAGsearch columns
     print(f"cleaning up magsearch result columns...", file=sys.stderr)
     magsearch_df['Run'] = magsearch_df['Run'].apply(extract_run_acc)
-    magsearch_df['query'] = magsearch_df['query'].apply(strip_quotes)
 
     # join in the ScientificName column from run_info.
     print(f"joining magsearch results with run info...", file=sys.stderr)
