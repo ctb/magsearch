@@ -1,3 +1,8 @@
 query.*
 output.*
 .snakemake
+*~
+__pycache__
+.crates.toml
+.crates2.json
+bin
