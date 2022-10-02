@@ -1,12 +1,12 @@
 # unique query name
-query_name: example
+query_name: test
 
 # list of paths of query signatures - 1 or more.
-query_sigs: query.example.txt
+query_sigs: tests/test-data/ibd-query.sig.list.txt
 
 # catalog to search - list of paths of subject signatures
 #catalog: /group/ctbrowngrp/sra_search/catalogs/metagenomes
-catalog: catalog.sub
+catalog: tests/test-data/ibd-catalog.txt
 
 # containment threshold to use
 threshold: 0.01
@@ -18,10 +18,10 @@ ksize: 31
 scaled: 1000
 
 # where to put the results
-out_dir: "output.magsearch"
+out_dir: "output.test"
 
 # runinfo file to use for results summary
-runinfo: "/home/ctbrown/transfer/big.runinfo.csv.gz"
+runinfo: "tests/test-data/gut.runinfo.csv"
 
 # threshold for results summary
-summary_threshold: 0.2
+summary_threshold: 0.01

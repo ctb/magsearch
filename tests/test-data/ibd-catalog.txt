@@ -1,0 +1,3 @@
+/group/ctbrowngrp/irber/data/wort-data/wort-sra/sigs/ERR346577.sig
+/group/ctbrowngrp/irber/data/wort-data/wort-sra/sigs/ERR3321951.sig
+/group/ctbrowngrp/irber/data/wort-data/wort-sra/sigs/SRR5936022.sig
