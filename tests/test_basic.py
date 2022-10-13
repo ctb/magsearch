@@ -55,6 +55,54 @@ def test_2(tmp_path):
     assert row['containment'] == '1'
 
 
+def test_2_downsample_query(tmp_path):
+    # search a single sketch at 10k against 3 sketches
+    query = 'tests/test-data/63-k31-10k-only.list.txt'
+    against = 'tests/test-data/all.list.txt'
+    results = tmp_path / 'xxx.txt'
+
+    p = run_search(query, against, '-o', results, '-s', 10000)
+    print(p.stdout)
+    print(p.stderr)
+    err = p.stderr.decode('utf-8')
+
+    assert 'Loaded 1 query signatures' in err
+    assert 'Loaded 3 sig paths in siglist' in err
+
+    rows = load_csv(results)
+    print(rows)
+
+    assert len(rows) == 1
+    row = rows[0]
+    assert row['query'] == 'NC_011663.1 Shewanella baltica OS223, complete genome'
+    assert row['Run'] == 'tests/test-data/63.fa.sig'
+    assert row['containment'] == '1'
+
+
+def test_2_downsample_against(tmp_path):
+    # search three sketches against a single sketch, at 10k
+    against = 'tests/test-data/63-k31-10k-only.list.txt'
+    query = 'tests/test-data/all.list.txt'
+    results = tmp_path / 'xxx.txt'
+
+    p = run_search(query, against, '-o', results, '-s', 10000)
+    print(p.stdout)
+    print(p.stderr)
+    err = p.stderr.decode('utf-8')
+
+    assert 'Loaded 3 query signatures' in err
+    assert 'Loaded 1 sig paths in siglist' in err
+
+    rows = load_csv(results)
+    print(rows)
+
+    assert len(rows) == 1
+    row = rows[0]
+    assert row['query'] == 'NC_011663.1 Shewanella baltica OS223, complete genome'
+    assert row['Run'] == 'tests/test-data/63-k31-10k.sig'
+    assert row['containment'] == '1'
+
+
 def test_3(tmp_path):
     # search multiple sketches
     query = 'tests/test-data/63-only.list.txt'
