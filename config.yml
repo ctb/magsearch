@@ -21,7 +21,7 @@ scaled: 1000
 out_dir: "output.magsearch"
 
 # runinfo file to use for results summary
-runinfo: "/home/ctbrown/transfer/big.runinfo.csv.gz"
+runinfo: "../2022-sra-gather/big.runinfo.csv.gz"
 
 # threshold for results summary
 summary_threshold: 0.2
