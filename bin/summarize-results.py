@@ -30,6 +30,7 @@ def main():
     p.add_argument('-t', '--containment-threshold', type=float, default=0.20)
     p.add_argument('-N', '--display-num-rows', type=int, default=20)
     p.add_argument('-o', '--output-annotated-csv')
+    p.add_argument('-M', '--markdown', action='store_true')
     args = p.parse_args()
 
     assert args.magsearch_csv != args.output_annotated_csv
@@ -79,7 +80,13 @@ def main():
     distinct_metagenomes = run_info[run_info["Run"].isin(sra_acc_set)]
 
     print("\nBreakdown of ScientificName across distinct metagenomes:\n", file=sys.stderr)
-    print(distinct_metagenomes["ScientificName"].value_counts()[:args.display_num_rows])
+    
+    summary = distinct_metagenomes["ScientificName"].value_counts()[:args.display_num_rows]
+
+    if args.markdown:
+        print(summary.to_markdown())
+    else:
+        print(summary)
 
 
 if __name__ == '__main__':
